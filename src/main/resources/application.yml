@@ -1,0 +1,57 @@
+server:
+  port: 8191
+  whitelabel:
+    enabled: false
+
+
+#  The spring.resources.add-mappings=false configuration is used to disable the
+#  default resource handling in Spring Boot. This is necessary because, by default,
+#  Spring Boot will handle requests for static resources (like images, CSS files, etc.)
+#  from the /static, /public, /resources, or /META-INF/resources directories.
+#  This default behavior can prevent NoHandlerFoundException from being thrown for certain
+#  invalid URLs, as the resource handler might intercept them.
+
+#  When you set spring.resources.add-mappings=false, you effectively disable this default
+#  static resource handling, ensuring that all requests are processed through the
+#  DispatcherServlet.
+
+spring:
+  datasource:
+    user:
+      url: jdbc:mysql://localhost:3306/rohi?allowPublicKeyRetrieval=true&useSSL=false
+      username: root
+      password: password
+      driverClassName: com.mysql.cj.jdbc.Driver
+    location:
+      url: jdbc:postgresql://localhost:5432/postgis_spatialdb
+      username: postgres
+      password: password
+      driverClassName: org.postgresql.Driver
+
+
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+
+# Adding properties for UserPersistenceConfiguration
+user:
+  jdbc:
+    url: jdbc:mysql://localhost:3306/rohi?allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: password
+  hibernate:
+    hbm2ddl.auto: update
+    dialect: org.hibernate.dialect.MySQL8Dialect
+
+location:
+  jdbc:
+    url: jdbc:postgresql://localhost:5432/postgis_spatialdb
+    username: postgres
+    password: password
+  hibernate:
+    hbm2ddl.auto: update
+    dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+
+
